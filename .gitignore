@@ -1,0 +1,12 @@
+# Binaries
+blocksec-auditor
+*.exe
+*.test
+*.out
+
+# IDE
+.idea/
+.vscode/
+
+# Dependencies
+vendor/

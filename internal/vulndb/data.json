@@ -1,0 +1,20 @@
+[
+  {
+    "cve": "CVE-2022-23328",
+    "client": "Geth",
+    "max_version": "1.10.17",
+    "severity": "HIGH"
+  },
+  {
+    "cve": "CVE-2022-29177",
+    "client": "Geth",
+    "max_version": "1.10.19",
+    "severity": "HIGH"
+  },
+  {
+    "cve": "CVE-2023-42319",
+    "client": "Nethermind",
+    "max_version": "1.20.4",
+    "severity": "HIGH"
+  }
+]

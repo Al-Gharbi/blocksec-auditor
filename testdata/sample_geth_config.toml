@@ -1,0 +1,6 @@
+[Node]
+HTTPHost = "0.0.0.0"
+HTTPPort = 8545
+HTTPModules = ["eth", "net", "web3", "admin"]
+HTTPVirtualHosts = ["*"]
+WSHost = "0.0.0.0"

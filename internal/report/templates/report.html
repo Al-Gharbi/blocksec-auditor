@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>BlockSec Auditor Report</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+.critical { background-color: #ffdddd; border-left: 6px solid #f44336; }
+.high { background-color: #ffe0b2; border-left: 6px solid #ff9800; }
+.medium { background-color: #ffffcc; border-left: 6px solid #ffeb3b; }
+.low { background-color: #e7f3fe; border-left: 6px solid #2196F3; }
+.pass { background-color: #ddffdd; }
+.result { padding: 10px; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>BlockSec Auditor Report</h1>
+{{range .Results}}
+<div class="result {{if .Passed}}pass{{else}}{{if eq .Risk "CRITICAL"}}critical{{else if eq .Risk "HIGH"}}high{{else if eq .Risk "MEDIUM"}}medium{{else}}low{{end}}{{end}}">
+<strong>{{.Name}}</strong> [{{.Risk}}] - {{if .Passed}}✅ Passed{{else}}❌ Failed{{end}}
+<p>{{.Description}}</p>
+{{if not .Passed}}<p><em>Remediation:</em> {{.Remediation}}</p>{{end}}
+</div>
+{{end}}
+</body>
+</html>
