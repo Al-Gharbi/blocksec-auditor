@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sync"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
 	"github.com/Al-Gharbi/blocksec-auditor/internal/checks"
@@ -58,19 +60,41 @@ func runAudit(cmd *cobra.Command, args []string) error {
 
 	if rpcURL != "" {
 		client := scanner.NewClient(rpcURL)
-		for _, check := range checks.AllChecks() {
-			res, err := check.Run(ctx, client)
-			if err != nil {
-				results = append(results, checks.CheckResult{
-					Name:        check.Name(),
-					Risk:        check.RiskLevel(),
-					Description: check.Description(),
-					Passed:      false,
-					Details:     map[string]string{"error": err.Error()},
-				})
-				continue
-			}
+		allChecks := checks.AllChecks()
+		resultsChan := make(chan checks.CheckResult, len(allChecks))
+		var wg sync.WaitGroup
+
+		color.Cyan("🚀 Starting security audit against: %s", rpcURL)
+
+		for _, check := range allChecks {
+			wg.Add(1)
+			go func(c checks.Check) {
+				defer wg.Done()
+				res, err := c.Run(ctx, client)
+				if err != nil {
+					resultsChan <- checks.CheckResult{
+						Name:        c.Name(),
+						Risk:        c.RiskLevel(),
+						Description: c.Description(),
+						Passed:      false,
+						Details:     map[string]string{"error": err.Error()},
+					}
+					return
+				}
+				resultsChan <- res
+			}(check)
+		}
+
+		wg.Wait()
+		close(resultsChan)
+
+		for res := range resultsChan {
 			results = append(results, res)
+			if res.Passed {
+				color.Green("✅ [%s] %s", res.Risk, res.Name)
+			} else {
+				color.Red("❌ [%s] %s", res.Risk, res.Name)
+			}
 		}
 	} else {
 		check := &checks.ConfigFileCheck{}
