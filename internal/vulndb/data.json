@@ -16,5 +16,17 @@
     "client": "Nethermind",
     "max_version": "1.20.4",
     "severity": "HIGH"
+  },
+  {
+    "cve": "CVE-2024-21503",
+    "client": "Erigon",
+    "max_version": "2.58.2",
+    "severity": "CRITICAL"
+  },
+  {
+    "cve": "CVE-2021-39137",
+    "client": "Geth",
+    "max_version": "1.10.8",
+    "severity": "CRITICAL"
   }
 ]
