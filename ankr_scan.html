@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head><title>BlockSec Auditor Report</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+.critical { background-color: #ffdddd; border-left: 6px solid #f44336; }
+.high { background-color: #ffe0b2; border-left: 6px solid #ff9800; }
+.medium { background-color: #ffffcc; border-left: 6px solid #ffeb3b; }
+.low { background-color: #e7f3fe; border-left: 6px solid #2196F3; }
+.pass { background-color: #ddffdd; }
+.result { padding: 10px; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h1>BlockSec Auditor Report</h1>
+
+<div class="result pass">
+<strong>TLS Not Enabled</strong> [HIGH] - ✅ Passed
+<p>Verifies HTTPS/TLS is used for the RPC connection</p>
+
+</div>
+
+<div class="result pass">
+<strong>Outdated Client / Known CVEs</strong> [MEDIUM] - ✅ Passed
+<p>Checks client version and compares against known vulnerabilities</p>
+
+</div>
+
+<div class="result medium">
+<strong>Insecure CORS Settings</strong> [MEDIUM] - ❌ Failed
+<p>Checks if Access-Control-Allow-Origin is set to * or reflects arbitrary origins</p>
+<p><em>Remediation:</em> Restrict CORS to trusted domains only. Do not use *.</p>
+</div>
+
+<div class="result pass">
+<strong>Unlocked Accounts</strong> [HIGH] - ✅ Passed
+<p>Checks if any accounts are currently unlocked on the node</p>
+
+</div>
+
+<div class="result pass">
+<strong>RPC Public Exposure</strong> [CRITICAL] - ✅ Passed
+<p>Checks if JSON-RPC endpoint responds without authentication</p>
+
+</div>
+
+<div class="result pass">
+<strong>Low Peer Count</strong> [MEDIUM] - ✅ Passed
+<p>Checks if the node is connected to enough peers to prevent eclipse attacks</p>
+
+</div>
+
+<div class="result pass">
+<strong>Admin API Exposed</strong> [CRITICAL] - ✅ Passed
+<p>Tests if dangerous admin/personal APIs are enabled on the public endpoint</p>
+
+</div>
+
+</body>
+</html>

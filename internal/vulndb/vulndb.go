@@ -10,10 +10,10 @@ import (
 var dbBytes []byte
 
 type Vulnerability struct {
-	CVE       string   `json:"cve"`
-	Client    string   `json:"client"`
-	MaxVersion string  `json:"max_version"`
-	Severity  string   `json:"severity"`
+	CVE        string `json:"cve"`
+	Client     string `json:"client"`
+	MaxVersion string `json:"max_version"`
+	Severity   string `json:"severity"`
 }
 
 var database []Vulnerability

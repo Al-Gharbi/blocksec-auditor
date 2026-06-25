@@ -11,7 +11,7 @@ type TLSCheck struct{}
 
 func init() { Register(&TLSCheck{}) }
 
-func (c *TLSCheck) Name() string        { return "TLS Not Enabled" }
+func (c *TLSCheck) Name() string         { return "TLS Not Enabled" }
 func (c *TLSCheck) Description() string  { return "Verifies HTTPS/TLS is used for the RPC connection" }
 func (c *TLSCheck) RiskLevel() RiskLevel { return RiskHigh }
 

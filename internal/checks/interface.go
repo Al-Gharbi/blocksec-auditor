@@ -15,12 +15,12 @@ const (
 )
 
 type CheckResult struct {
-	Name         string      `json:"name"`
-	Risk         RiskLevel   `json:"risk"`
-	Description  string      `json:"description"`
-	Remediation  string      `json:"remediation"`
-	Passed       bool        `json:"passed"`
-	Details      interface{} `json:"details"`
+	Name        string      `json:"name"`
+	Risk        RiskLevel   `json:"risk"`
+	Description string      `json:"description"`
+	Remediation string      `json:"remediation"`
+	Passed      bool        `json:"passed"`
+	Details     interface{} `json:"details"`
 }
 
 type Check interface {

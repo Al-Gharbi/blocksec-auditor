@@ -10,8 +10,10 @@ type RPCExposureCheck struct{}
 
 func init() { Register(&RPCExposureCheck{}) }
 
-func (c *RPCExposureCheck) Name() string        { return "RPC Public Exposure" }
-func (c *RPCExposureCheck) Description() string  { return "Checks if JSON-RPC endpoint responds without authentication" }
+func (c *RPCExposureCheck) Name() string { return "RPC Public Exposure" }
+func (c *RPCExposureCheck) Description() string {
+	return "Checks if JSON-RPC endpoint responds without authentication"
+}
 func (c *RPCExposureCheck) RiskLevel() RiskLevel { return RiskCritical }
 
 func (c *RPCExposureCheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {

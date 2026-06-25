@@ -13,8 +13,10 @@ type AdminAPICheck struct{}
 
 func init() { Register(&AdminAPICheck{}) }
 
-func (c *AdminAPICheck) Name() string        { return "Admin API Exposed" }
-func (c *AdminAPICheck) Description() string  { return "Tests if dangerous admin/personal APIs are enabled on the public endpoint" }
+func (c *AdminAPICheck) Name() string { return "Admin API Exposed" }
+func (c *AdminAPICheck) Description() string {
+	return "Tests if dangerous admin/personal APIs are enabled on the public endpoint"
+}
 func (c *AdminAPICheck) RiskLevel() RiskLevel { return RiskCritical }
 
 func (c *AdminAPICheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {
@@ -43,8 +45,10 @@ type PeerCountCheck struct{}
 
 func init() { Register(&PeerCountCheck{}) }
 
-func (c *PeerCountCheck) Name() string        { return "Low Peer Count" }
-func (c *PeerCountCheck) Description() string  { return "Checks if the node is connected to enough peers to prevent eclipse attacks" }
+func (c *PeerCountCheck) Name() string { return "Low Peer Count" }
+func (c *PeerCountCheck) Description() string {
+	return "Checks if the node is connected to enough peers to prevent eclipse attacks"
+}
 func (c *PeerCountCheck) RiskLevel() RiskLevel { return RiskMedium }
 
 func (c *PeerCountCheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {

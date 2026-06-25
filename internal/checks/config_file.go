@@ -11,8 +11,10 @@ import (
 
 type ConfigFileCheck struct{}
 
-func (c *ConfigFileCheck) Name() string        { return "Configuration File Weaknesses" }
-func (c *ConfigFileCheck) Description() string  { return "Analyzes Geth TOML or Nethermind JSON config files for insecure settings" }
+func (c *ConfigFileCheck) Name() string { return "Configuration File Weaknesses" }
+func (c *ConfigFileCheck) Description() string {
+	return "Analyzes Geth TOML or Nethermind JSON config files for insecure settings"
+}
 func (c *ConfigFileCheck) RiskLevel() RiskLevel { return RiskHigh }
 
 func (c *ConfigFileCheck) Run(ctx context.Context, client *any) (CheckResult, error) {

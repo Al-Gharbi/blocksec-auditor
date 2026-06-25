@@ -12,8 +12,10 @@ type ClientVersionCheck struct{}
 
 func init() { Register(&ClientVersionCheck{}) }
 
-func (c *ClientVersionCheck) Name() string        { return "Outdated Client / Known CVEs" }
-func (c *ClientVersionCheck) Description() string  { return "Checks client version and compares against known vulnerabilities" }
+func (c *ClientVersionCheck) Name() string { return "Outdated Client / Known CVEs" }
+func (c *ClientVersionCheck) Description() string {
+	return "Checks client version and compares against known vulnerabilities"
+}
 func (c *ClientVersionCheck) RiskLevel() RiskLevel { return RiskMedium }
 
 func (c *ClientVersionCheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {
@@ -41,7 +43,7 @@ func (c *ClientVersionCheck) Run(ctx context.Context, client *scanner.Client) (C
 		Remediation: "Upgrade to a version that patches these vulnerabilities.",
 		Passed:      passed,
 		Details: map[string]interface{}{
-			"client_version": version,
+			"client_version":  version,
 			"vulnerabilities": vulns,
 		},
 	}, nil

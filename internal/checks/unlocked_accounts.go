@@ -11,8 +11,10 @@ type UnlockedAccountsCheck struct{}
 
 func init() { Register(&UnlockedAccountsCheck{}) }
 
-func (c *UnlockedAccountsCheck) Name() string        { return "Unlocked Accounts" }
-func (c *UnlockedAccountsCheck) Description() string  { return "Checks if any accounts are currently unlocked on the node" }
+func (c *UnlockedAccountsCheck) Name() string { return "Unlocked Accounts" }
+func (c *UnlockedAccountsCheck) Description() string {
+	return "Checks if any accounts are currently unlocked on the node"
+}
 func (c *UnlockedAccountsCheck) RiskLevel() RiskLevel { return RiskHigh }
 
 func (c *UnlockedAccountsCheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {

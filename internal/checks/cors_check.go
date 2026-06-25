@@ -11,8 +11,10 @@ type CORSCheck struct{}
 
 func init() { Register(&CORSCheck{}) }
 
-func (c *CORSCheck) Name() string        { return "Insecure CORS Settings" }
-func (c *CORSCheck) Description() string  { return "Checks if Access-Control-Allow-Origin is set to * or reflects arbitrary origins" }
+func (c *CORSCheck) Name() string { return "Insecure CORS Settings" }
+func (c *CORSCheck) Description() string {
+	return "Checks if Access-Control-Allow-Origin is set to * or reflects arbitrary origins"
+}
 func (c *CORSCheck) RiskLevel() RiskLevel { return RiskMedium }
 
 func (c *CORSCheck) Run(ctx context.Context, client *scanner.Client) (CheckResult, error) {

@@ -7,8 +7,8 @@ import (
 )
 
 type JSONReport struct {
-	Timestamp string              `json:"timestamp"`
-	Results   []checks.CheckResult `json:"results"`
+	Timestamp string                   `json:"timestamp"`
+	Results   []checks.CheckResult     `json:"results"`
 	Summary   map[checks.RiskLevel]int `json:"summary"`
 }
 
