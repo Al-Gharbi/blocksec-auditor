@@ -1,6 +1,6 @@
 # BlockSec Auditor
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/Al-Gharbi/blocksec-auditor)](https://goreportcard.com/report/github.com/Al-Gharbi/blocksec-auditor)
+[![Go Report Card](https://goreportcard.com/badge/github.com/al-gharbi/blocksec-auditor)](https://goreportcard.com/report/github.com/al-gharbi/blocksec-auditor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **BlockSec Auditor** is a high-performance, security-focused auditing tool designed for Ethereum and EVM-compatible blockchain nodes. Built with Go, it provides node operators and security researchers with a comprehensive suite of checks to identify infrastructure-level vulnerabilities, misconfigurations, and outdated software.
