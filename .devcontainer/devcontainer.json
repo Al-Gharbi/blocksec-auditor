@@ -1,0 +1,16 @@
+{
+    "name": "Go Security Dev Environment",
+    "image": "mcr.microsoft.com/devcontainers/go:1-1.21-bullseye",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+    },
+    "postCreateCommand": "go mod tidy && make build",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.go",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+}
