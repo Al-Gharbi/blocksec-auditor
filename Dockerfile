@@ -5,13 +5,14 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN make build
+ARG VERSION=dev
+RUN make build VERSION=${VERSION}
 
-# Final stage
-FROM alpine:latest
-RUN apk add --no-cache ca-certificates
-WORKDIR /root/
-COPY --from=builder /app/blocksec-auditor .
-COPY --from=builder /app/testdata ./testdata
-ENTRYPOINT ["./blocksec-auditor"]
+# Final stage: static binary, non-root user
+FROM alpine:3.20
+RUN apk add --no-cache ca-certificates && adduser -D -u 10001 auditor
+USER auditor
+WORKDIR /home/auditor
+COPY --from=builder /app/blocksec-auditor /usr/local/bin/blocksec-auditor
+ENTRYPOINT ["blocksec-auditor"]
 CMD ["--help"]

@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html>
-<head><title>BlockSec Auditor Report</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockSec Auditor report</title>
 <style>
-body { font-family: Arial; margin: 20px; }
-.critical { background-color: #ffdddd; border-left: 6px solid #f44336; }
-.high { background-color: #ffe0b2; border-left: 6px solid #ff9800; }
-.medium { background-color: #ffffcc; border-left: 6px solid #ffeb3b; }
-.low { background-color: #e7f3fe; border-left: 6px solid #2196F3; }
-.pass { background-color: #ddffdd; }
-.result { padding: 10px; margin: 10px 0; }
+body { font-family: system-ui, sans-serif; margin: 24px auto; max-width: 860px; padding: 0 16px; color: #1b1f24; }
+h1 { font-size: 1.4rem; }
+.meta { color: #57606a; font-size: .9rem; }
+.result { padding: 10px 14px; margin: 10px 0; border-left: 6px solid #8c959f; background: #f6f8fa; }
+.result.pass { border-color: #2da44e; }
+.result.fail.critical { border-color: #cf222e; background: #ffebe9; }
+.result.fail.high { border-color: #fb8500; background: #fff1e5; }
+.result.fail.medium { border-color: #d4a72c; background: #fff8c5; }
+.result.fail.low { border-color: #0969da; background: #ddf4ff; }
+.result.error { border-color: #8250df; }
+.result.skipped { border-color: #8c959f; }
+.tag { font-weight: 600; }
+pre { background: #fff; border: 1px solid #d0d7de; padding: 8px; overflow-x: auto; font-size: .8rem; }
+@media (prefers-color-scheme: dark) {
+  body { background: #0d1117; color: #e6edf3; }
+  .meta { color: #8b949e; }
+  .result { background: #161b22; }
+  .result.fail.critical, .result.fail.high, .result.fail.medium, .result.fail.low { background: #1c2128; }
+  pre { background: #0d1117; border-color: #30363d; }
+}
 </style>
 </head>
 <body>
-<h1>BlockSec Auditor Report</h1>
+<h1>BlockSec Auditor report</h1>
+<p class="meta">Target: {{.Target}} &middot; {{.Timestamp}} &middot; v{{.Version}}</p>
+<p>{{.Summary.Passed}} passed &middot; {{range $k, $v := .Summary.Failed}}{{$v}} {{$k}} failed &middot; {{end}}{{.Summary.Errors}} error &middot; {{.Summary.Skipped}} skipped</p>
+{{if or .Summary.Errors .Summary.Skipped}}<p><strong>Checks with status ERROR or SKIPPED were not assessed; they are not passes.</strong></p>{{end}}
 {{range .Results}}
-<div class="result {{if .Passed}}pass{{else}}{{if eq .Risk "CRITICAL"}}critical{{else if eq .Risk "HIGH"}}high{{else if eq .Risk "MEDIUM"}}medium{{else}}low{{end}}{{end}}">
-<strong>{{.Name}}</strong> [{{.Risk}}] - {{if .Passed}}✅ Passed{{else}}❌ Failed{{end}}
+<div class="result {{lower (printf "%s" .Status)}} {{lower (printf "%s" .Risk)}}">
+<span class="tag">{{.Status}}</span> [{{.Risk}}] {{.ID}} &mdash; <strong>{{.Name}}</strong>
 <p>{{.Description}}</p>
-{{if not .Passed}}<p><em>Remediation:</em> {{.Remediation}}</p>{{end}}
+{{if and .Remediation (ne (printf "%s" .Status) "PASS")}}<p><em>Remediation:</em> {{.Remediation}}</p>{{end}}
+{{if .Details}}<details><summary>Details</summary><pre>{{detail .Details}}</pre></details>{{end}}
 </div>
 {{end}}
 </body>

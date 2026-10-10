@@ -1,0 +1,21 @@
+# Shape of `geth dumpconfig` with default RPC settings (loopback, safe modules).
+[Eth]
+NetworkId = 1
+SyncMode = "snap"
+
+[Node]
+DataDir = "/var/lib/geth"
+IPCPath = "geth.ipc"
+HTTPHost = "localhost"
+HTTPPort = 8545
+HTTPCors = ["localhost"]
+HTTPVirtualHosts = ["localhost"]
+HTTPModules = ["net", "web3", "eth"]
+WSHost = ""
+WSPort = 8546
+WSModules = ["net", "web3", "eth"]
+AuthAddr = "localhost"
+AuthPort = 8551
+
+[Node.P2P]
+MaxPeers = 50

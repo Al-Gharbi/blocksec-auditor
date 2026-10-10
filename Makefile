@@ -1,14 +1,21 @@
-BINARY=blocksec-auditor
-LDFLAGS=-s -w
+BINARY  := blocksec-auditor
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
+LDFLAGS := -s -w -X main.version=$(VERSION)
 
+.PHONY: build test vet fmt lint clean
 build:
-	go build -ldflags "$(LDFLAGS)" -o $(BINARY) ./cmd/auditor
+	CGO_ENABLED=0 go build -trimpath -ldflags "$(LDFLAGS)" -o $(BINARY) ./cmd/auditor
 
 test:
-	go test -v -race ./...
+	go test -race -count=1 ./...
 
-lint:
-	golangci-lint run
+vet:
+	go vet ./...
+
+fmt:
+	@test -z "$$(gofmt -l .)" || (echo "gofmt needed:"; gofmt -l .; exit 1)
+
+lint: fmt vet
 
 clean:
 	rm -f $(BINARY)

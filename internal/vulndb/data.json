@@ -1,32 +1,112 @@
 [
   {
-    "cve": "CVE-2022-23328",
-    "client": "Geth",
-    "max_version": "1.10.17",
-    "severity": "HIGH"
+    "id": "GETH-2020-01",
+    "cve": "CVE-2020-26240",
+    "client": "geth",
+    "introduced": "1.6.0",
+    "fixed": "1.9.24",
+    "severity": "MEDIUM",
+    "summary": "CorruptedDAG: ethash DAG corruption can make a node reject valid blocks",
+    "source": "Geth vulnerabilities.json (GETH-2020-01)",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-v592-xf75-856p"
   },
   {
-    "cve": "CVE-2022-29177",
-    "client": "Geth",
-    "max_version": "1.10.19",
-    "severity": "HIGH"
+    "id": "GETH-2020-03",
+    "cve": "CVE-2020-26241",
+    "client": "geth",
+    "introduced": "1.9.7",
+    "fixed": "1.9.17",
+    "severity": "CRITICAL",
+    "summary": "ShallowCopy: consensus flaw in the snapshot-based state handling",
+    "source": "Geth vulnerabilities.json (GETH-2020-03)",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-69v6-xc2j-r2jf"
   },
   {
-    "cve": "CVE-2023-42319",
-    "client": "Nethermind",
-    "max_version": "1.20.4",
-    "severity": "HIGH"
+    "id": "GETH-2020-04",
+    "cve": "CVE-2020-26242",
+    "client": "geth",
+    "introduced": "1.9.16",
+    "fixed": "1.9.18",
+    "severity": "CRITICAL",
+    "summary": "Denial of service via a crafted MULMOD (uint256 library bug)",
+    "source": "Geth vulnerabilities.json (GETH-2020-04)",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-jm5c-rv3w-w83m"
   },
   {
-    "cve": "CVE-2024-21503",
-    "client": "Erigon",
-    "max_version": "2.58.2",
-    "severity": "CRITICAL"
+    "id": "GETH-2020-05",
+    "cve": "CVE-2020-26264",
+    "client": "geth",
+    "introduced": "1.8.0",
+    "fixed": "1.9.25",
+    "severity": "MEDIUM",
+    "summary": "LES server denial of service via GetProofsV2",
+    "source": "Geth vulnerabilities.json (GETH-2020-05)",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-r33q-22hv-j29q"
   },
   {
+    "id": "GETH-2020-06",
+    "cve": "CVE-2020-26265",
+    "client": "geth",
+    "introduced": "1.9.4",
+    "fixed": "1.9.20",
+    "severity": "HIGH",
+    "summary": "SELFDESTRUCT-and-recreate consensus flaw (chain split)",
+    "source": "Geth vulnerabilities.json (GETH-2020-06); OSV",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-xw37-57qp-9mm4"
+  },
+  {
+    "id": "GETH-2021-02",
     "cve": "CVE-2021-39137",
-    "client": "Geth",
-    "max_version": "1.10.8",
-    "severity": "CRITICAL"
+    "client": "geth",
+    "introduced": "1.10.0",
+    "fixed": "1.10.8",
+    "severity": "HIGH",
+    "summary": "RETURNDATA corruption via datacopy; consensus failure (chain split)",
+    "source": "Geth vulnerabilities.json (GETH-2021-02); OSV",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-9856-9gg9-qcmq"
+  },
+  {
+    "id": "GETH-2021-03",
+    "cve": "CVE-2021-41173",
+    "client": "geth",
+    "introduced": "1.10.0",
+    "fixed": "1.10.9",
+    "severity": "MEDIUM",
+    "summary": "Denial of service via a malicious snap/1 request",
+    "source": "Geth vulnerabilities.json (GETH-2021-03)",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-59hh-656j-3p7v"
+  },
+  {
+    "id": "GETH-2022-01",
+    "cve": "CVE-2022-29177",
+    "client": "geth",
+    "introduced": "1.10.0",
+    "fixed": "1.10.17",
+    "severity": "LOW",
+    "summary": "Denial of service via malicious p2p message (only with high-verbosity logging)",
+    "source": "Geth vulnerabilities.json (GETH-2022-01); OSV",
+    "reference": "https://github.com/ethereum/go-ethereum/security/advisories/GHSA-wjxw-gh3m-7pm5"
+  },
+  {
+    "id": "OSV-CVE-2023-40591",
+    "cve": "CVE-2023-40591",
+    "client": "geth",
+    "introduced": "1.10.0",
+    "fixed": "1.12.1",
+    "severity": "HIGH",
+    "summary": "Unbounded memory use on crafted p2p messages (denial of service)",
+    "source": "OSV (CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)",
+    "reference": "https://osv.dev/vulnerability/CVE-2023-40591"
+  },
+  {
+    "id": "OSV-CVE-2024-32972",
+    "cve": "CVE-2024-32972",
+    "client": "geth",
+    "introduced": "0.0.0",
+    "fixed": "1.13.15",
+    "severity": "HIGH",
+    "summary": "Excessive memory use on crafted p2p messages (denial of service)",
+    "source": "OSV (CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)",
+    "reference": "https://osv.dev/vulnerability/CVE-2024-32972"
   }
 ]

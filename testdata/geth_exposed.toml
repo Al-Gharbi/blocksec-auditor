@@ -1,0 +1,10 @@
+[Node]
+HTTPHost = "0.0.0.0"
+HTTPPort = 8545
+HTTPCors = ["*"]
+HTTPVirtualHosts = ["*"]
+HTTPModules = ["eth", "net", "web3", "admin", "debug"]
+WSHost = "::"
+WSPort = 8546
+WSOrigins = ["*"]
+WSModules = ["eth", "personal"]
