@@ -1,0 +1,5 @@
+# Wrong element types must produce a result, never a panic.
+[Node]
+HTTPHost = "0.0.0.0"
+HTTPModules = [1, true, "admin"]
+HTTPVirtualHosts = [1]

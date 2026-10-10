@@ -4,7 +4,7 @@
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:1": {}
     },
-    "postCreateCommand": "go mod tidy && make build",
+    "postCreateCommand": "make build",
     "customizations": {
         "vscode": {
             "extensions": [

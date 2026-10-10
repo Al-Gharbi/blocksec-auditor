@@ -2,20 +2,48 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ['1.21', '1.22', '1.23']
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v5
-      with:
-        go-version: '1.21'
-    - name: Test
-      run: go test -v -race ./...
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: gofmt
+        run: test -z "$(gofmt -l .)" || (gofmt -l .; exit 1)
+      - name: vet
+        run: go vet ./...
+      - name: test
+        run: go test -race -count=1 ./...
+
+  real-data:
+    # Cross-checks the embedded vulnerability list against Geth's own advisory
+    # file over every real stable release tag (see docs/VALIDATION.md).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Fetch Geth advisory file and release tags
+        run: |
+          git clone --quiet --depth 1 --filter=blob:none --sparse https://github.com/ethereum/go-ethereum.git /tmp/geth
+          git -C /tmp/geth fetch --quiet --depth 1 origin refs/tags/v1.14.0:refs/tags/v1.14.0
+          git -C /tmp/geth show v1.14.0:cmd/geth/testdata/vcheck/vulnerabilities.json > /tmp/vulnerabilities.json
+          git -C /tmp/geth ls-remote --tags origin | sed 's#.*refs/tags/##' | grep -v '\^{}' > /tmp/tags.txt
+      - name: Validate
+        run: go run ./tools/validate-vulndb /tmp/vulnerabilities.json /tmp/tags.txt
 
   build:
     needs: test
@@ -25,19 +53,19 @@ jobs:
         os: [linux, darwin, windows]
         arch: [amd64, arm64]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v5
-      with:
-        go-version: '1.21'
-    - name: Build
-      env:
-        GOOS: ${{ matrix.os }}
-        GOARCH: ${{ matrix.arch }}
-      run: |
-        mkdir -p dist
-        go build -ldflags="-s -w" -o dist/blocksec-auditor-${{ matrix.os }}-${{ matrix.arch }} ./cmd/auditor
-    - uses: actions/upload-artifact@v4
-      with:
-        name: binaries-${{ matrix.os }}-${{ matrix.arch }}
-        path: dist/
-
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Build
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: '0'
+        run: |
+          mkdir -p dist
+          go build -trimpath -ldflags="-s -w -X main.version=${GITHUB_REF_NAME}" -o dist/blocksec-auditor-${{ matrix.os }}-${{ matrix.arch }} ./cmd/auditor
+      - uses: actions/upload-artifact@v4
+        with:
+          name: binaries-${{ matrix.os }}-${{ matrix.arch }}
+          path: dist/

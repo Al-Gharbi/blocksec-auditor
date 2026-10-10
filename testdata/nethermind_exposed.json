@@ -1,0 +1,8 @@
+{
+  "jsonrpc": {
+    "enabled": true,
+    "host": "0.0.0.0",
+    "enabledModules": ["Eth", "Admin", "Personal"],
+    "AdditionalRpcUrls": ["http://0.0.0.0:8551|http;ws|engine;debug"]
+  }
+}
